@@ -19,11 +19,11 @@
     //validate names
     if($first_name === FALSE){
         $error_message .= 'Invalid Name.<br>';
-    } else if($first_name == 'name' || $first_name == '') {
+    } else if($first_name == '') {
         $error_message .= 'First name cannot be empty.<br>';
     }
 
-    if($last_name === FALSE || $last_name == 'name' || $last_name == '') {
+    if($last_name === FALSE || $last_name == '') {
         $error_message .= 'Last name cannot be empty.<br>';
     }
 
@@ -32,7 +32,7 @@
         $error_message .= 'Age must be an interger. <br>';
     } else if ($age > 150 || $age < 0) {
         $error_message .= 'Age cannot be obscene, a.k.a. unrealistic. <br>';
-    } else if ($age == 'age' || $age == '') {
+    } else if ($age == '') {
         $error_message .= 'Age cannot be empty.<br>';
     }
 
@@ -51,27 +51,32 @@
         <title>Get Parameters</title>
         <link href="./bootstrap.css" rel="stylesheet">
     </head>
-    <nav>
+    <nav class="nav nav-pills justify-content-center">
         <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link" href="./index.php">Home</a>
+              <a class="nav-link active" href="./index.php">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="">Date: <?php echo $date; ?></a>
+                <a class="nav-link disabled" href="">Date: <?php echo htmlspecialchars($date); ?></a>
             </li>
     </nav>
-    <body>
+    <body class="container text-center">
         <h2>
             Voting Age
         </h2>
         <p>
-            Hello, my name is <?php echo $full_name; ?>.
+            Hello, my name is <?php echo $full_name; ?>. 
+            <br>
             <?php 
                 if($age >= 18) {
-                    echo "I am old enough to vote in the United States.";
+                    echo "At " . $age . " years old, I can vote in the United States.<br>";
+                    $age_eightteen =  $age * 365 - 6574;
+                    echo "It has been " . $age_eightteen . " days since I was 18.";
                 }
                 else {
-                    echo "I am not old enough to vote in the United States.";
+                    echo "At " . $age . " years old, I am not old enough to vote in the United States.<br>";
+                    $age_eightteen = 6574 - $age * 365;
+                    echo "It is " . $age_eightteen . " days until I am 18.";
                 }
             ?>
             <!-- 

@@ -4,9 +4,9 @@
     // INF 653 Backend Web Development
 
     // set default values of variables for init page load
-    if (!isset($first_name)) {$first_name = 'name';}
-    if (!isset($last_name)) {$last_name = 'name';}
-    if (!isset($age)) {$age = 'age';};
+    if (!isset($first_name)) {$first_name = '';}
+    if (!isset($last_name)) {$last_name = '';}
+    if (!isset($age)) {$age = '';};
 
     $full_name = $first_name.' '. $last_name;
     $date = date("d/m/y");
@@ -20,44 +20,52 @@
         <title>Get Parameters</title>
         <link href="./bootstrap.css" rel="stylesheet">
     </head>
-    <nav>
+    <nav class="nav nav-pills justify-content-center">
         <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link" href="./index.php">Home</a>
+              <a class="nav-link active" href="./index.php">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled" href="">Date: <?php echo htmlspecialchars($date); ?></a>
             </li>
     </nav>
-    <body>
+    <body class="container text-center">
         <h2>
             Welcome!!
         </h2>
         <?php if (!empty($error_message)) { ?>
-                <p><?php echo htmlspecialchars($error_message); ?></p>
+                <p><?php echo $error_message; ?></p>
         <?php } else { ?>
-        <h3>
+        <h4>
             Please Enter the below information.
-        </h3>
+        </h4>
         <?php } ?>
         <form action="./display.php" method="GET">
-            <div id="data">
-                <label for="first_name">First Name</label>
-                <input type="text" id="first_name" name="first_name" autocomplete="off" 
-                    value="<?php echo htmlspecialchars($first_name); ?>"/>
-                    <br>
-                <label for="last_name">Last Name</label>
-                <input type="text" id="last_name" name="last_name" autocomplete="off" 
-                    value="<?php echo htmlspecialchars($last_name); ?>"/>
-                    <br>
-                <label for="age">Age</label>
-                <input type="text" id="age" name="age" autocomplete="off" 
-                    value="<?php echo htmlspecialchars($age); ?>"/>
+            <div class="mb-3">
+                <label class="form-label" for="first_name">First Name</label>
+                <input class="form-label" type="text" id="first_name" name="first_name" autocomplete="off" 
+                    value="<?php echo htmlentities($first_name); ?>"
+                    placehold="First Name"/>
                     <br>
             </div>
-            <div id="buttons">
+            <div class="mb-3">
+                <label class="form-label" for="last_name">Last Name</label>
+                <input class="form-label" type="text" id="last_name" name="last_name" autocomplete="off" 
+                    value="<?php echo htmlspecialchars($last_name); ?>"
+                    placehold="Last Name"/>
+                    <br>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="age">Age</label>
+                <input class="form-label" type="text" id="age" name="age" autocomplete="off" 
+                    value="<?php echo htmlentities($age); ?>"
+                    placehold="Age"/>
+                    <br>
+            </div>
+            <div class="mb-3">
+            <div id="buttons" class="mb-3">
             <label for="submit">&nbsp;</label>
-                <input type="submit" id="submit" name="submit"/><br>
+                <button class="btn btn-primary" type="submit" id="submit" name="submit"/>Submit<br>
             </div>
         </form>
     </body>
