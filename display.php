@@ -9,19 +9,38 @@
 
     $age = filter_input(INPUT_GET, 'age', FILTER_VALIDATE_INT);
     $date = date("d/m/y");
-    $full_name = filter_input(INPUT_GET, 'first_name') . ' ' . filter_input(INPUT_GET, '$last_name');
+    $first_name = filter_input(INPUT_GET, 'first_name');
+    $last_name = filter_input(INPUT_GET, 'last_name');
+    $full_name = $first_name . ' ' . $last_name;
 
     // data validation block
     $error_message = '';
-    
+
+    //validate names
+    if($first_name === FALSE){
+        $error_message .= 'Invalid Name.<br>';
+    } else if($first_name == 'name' || $first_name == '') {
+        $error_message .= 'First name cannot be empty.<br>';
+    }
+
+    if($last_name === FALSE || $last_name == 'name' || $last_name == '') {
+        $error_message .= 'Last name cannot be empty.<br>';
+    }
+
     // validate age
     if($age === FALSE) {
         $error_message .= 'Age must be an interger. <br>';
-    } else if ($age < 0) {
-        $error_message .= 'Age cannot be lower than zero. <br>';
+    } else if ($age > 150 || $age < 0) {
+        $error_message .= 'Age cannot be obscene, a.k.a. unrealistic. <br>';
+    } else if ($age == 'age' || $age == '') {
+        $error_message .= 'Age cannot be empty.<br>';
     }
 
-    //validate names
+    // if error exists, revert to index page
+    if ($error_message != '') {
+        include('./index.php');
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html>
